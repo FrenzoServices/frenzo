@@ -4,77 +4,56 @@ The official website for **Frenzo**, a global digital growth systems company.
 
 ## 🚀 Live Demo
 
-**URL**: [https://rajsahilcoder.github.io/frenzo/](https://rajsahilcoder.github.io/frenzo/)
+**URL**: [https://frenzo.services](https://frenzo.services)
 
-_(Note: The site will be live here **after** you push the code to GitHub and the Action completes.)_
+_(Note: DNS propagation can take up to 24-48 hours, but usually happens within minutes.)_
 
-## ⚡ How to Deploy (Important!)
+## ⚡ Deployment Instructions
 
-You are currently running the code locally. To deploy it to the live URL above, you must **push the code to GitHub**.
+### 1. Push to GitHub
 
-Run these commands in your terminal:
+Run these commands to deploy the latest changes:
 
 ```bash
-# 1. Add your GitHub repository as the remote origin
-git remote add origin https://github.com/rajsahilcoder/frenzo.git
-
-# 2. Rename the current branch to 'main'
-git branch -M main
-
-# 3. Push the code
-git push -u origin main
+git add .
+git commit -m "configure custom domain"
+git push
 ```
 
-**What happens next?**
+### 2. Configure DNS (Important!)
 
-1.  GitHub Actions will automatically trigger.
-2.  It will build the website.
-3.  It will deploy it to the `gh-pages` branch.
-4.  After about 1-2 minutes, your site will be live at the URL above.
+Since you are using a custom domain (`frenzo.services`), you need to configure your DNS settings at your domain registrar (where you bought the domain).
 
----
+**Add the following records:**
 
-## 🛠️ Local Development vs. Deployment
+| Type      | Name  | Value                     |
+| :-------- | :---- | :------------------------ |
+| **CNAME** | `www` | `rajsahilcoder.github.io` |
+| **A**     | `@`   | `185.199.108.153`         |
+| **A**     | `@`   | `185.199.109.153`         |
+| **A**     | `@`   | `185.199.110.153`         |
+| **A**     | `@`   | `185.199.111.153`         |
 
-- **`npm run dev`**: This is for **YOU** to see the changes on your computer while you code. It runs at `http://localhost:5173`. No one else can see this.
-- **Deployment**: This is when you push code to GitHub to make it public on the internet at `https://rajsahilcoder.github.io/frenzo/`.
+### 3. Verify GitHub Settings
 
-## 📦 Project Setup
+1. Go to your GitHub Repository > **Settings** > **Pages**.
+2. Under "Custom domain", you should see `frenzo.services`.
+3. Check the box **"Enforce HTTPS"** (it might take a few minutes to become available).
 
-### Prerequisites
-
-- Node.js (v18+)
-- npm
-
-### Installation
+## 🛠️ Local Development
 
 ```bash
 npm install
-```
-
-### Start Local Server
-
-```bash
 npm run dev
 ```
-
-## ⚙️ Configuration Notes
-
-- **Base Path**: The app is configured with `base: '/frenzo/'` in `vite.config.js` to work on GitHub Pages.
-- **Routing**: `App.jsx` uses `basename="/frenzo"` to handle routing correctly on the live site.
 
 ## 📂 Project Structure
 
 ```
+public/
+  CNAME            # Custom domain configuration file
 src/
-├── components/
-│   ├── layout/    # Navbar, Footer
-│   └── ui/        # Reusable components
-├── pages/         # Core pages
-├── styles/        # Global CSS
-└── App.jsx        # Main router
+  components/      # UI Components
+  pages/           # Route Pages
+  styles/          # Global CSS
 ```
-
-## 📄 License
-
-All rights reserved. Frenzo 2026.
