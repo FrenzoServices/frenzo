@@ -3,6 +3,23 @@ import Section from '../components/ui/Section';
 import Button from '../components/ui/Button';
 
 const Contact = () => {
+  const [formData, setFormData] = React.useState({
+    name: '',
+    email: '',
+    details: ''
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const subject = `Project Inquiry from ${formData.name}`;
+    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nProject Details:\n${formData.details}`;
+    window.location.href = `mailto:contact@frenzo.services?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
     <div style={{ paddingTop: 'var(--header-height)' }}>
       <Section>
@@ -23,42 +40,67 @@ const Contact = () => {
              </div>
           </div>
           
-          <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left' }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Name</label>
-              <input type="text" style={{ 
-                width: '100%', 
-                padding: '1rem', 
-                background: 'var(--bg-secondary)', 
-                border: '1px solid var(--border-light)', 
-                color: 'var(--text-primary)',
-                borderRadius: '0.5rem'
-              }} placeholder="Enter your name" />
+              <input 
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                type="text" 
+                required
+                style={{ 
+                  width: '100%', 
+                  padding: '1rem', 
+                  background: 'var(--bg-secondary)', 
+                  border: '1px solid var(--border-light)', 
+                  color: 'var(--text-primary)',
+                  borderRadius: '0.5rem'
+                }} 
+                placeholder="Enter your name" 
+              />
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Email</label>
-              <input type="email" style={{ 
-                width: '100%', 
-                padding: '1rem', 
-                background: 'var(--bg-secondary)', 
-                border: '1px solid var(--border-light)', 
-                color: 'var(--text-primary)',
-                borderRadius: '0.5rem'
-              }} placeholder="Enter your email" />
+              <input 
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                type="email" 
+                required
+                style={{ 
+                  width: '100%', 
+                  padding: '1rem', 
+                  background: 'var(--bg-secondary)', 
+                  border: '1px solid var(--border-light)', 
+                  color: 'var(--text-primary)',
+                  borderRadius: '0.5rem'
+                }} 
+                placeholder="Enter your email" 
+              />
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Project Details</label>
-              <textarea style={{ 
-                width: '100%', 
-                padding: '1rem', 
-                background: 'var(--bg-secondary)', 
-                border: '1px solid var(--border-light)', 
-                color: 'var(--text-primary)',
-                borderRadius: '0.5rem',
-                minHeight: '150px'
-              }} placeholder="Tell us about your project" />
+              <textarea 
+                name="details"
+                value={formData.details}
+                onChange={handleChange}
+                required
+                style={{ 
+                  width: '100%', 
+                  padding: '1rem', 
+                  background: 'var(--bg-secondary)', 
+                  border: '1px solid var(--border-light)', 
+                  color: 'var(--text-primary)',
+                  borderRadius: '0.5rem',
+                  minHeight: '150px'
+                }} 
+                placeholder="Tell us about your project" 
+              />
             </div>
-            <Button variant="primary" style={{ width: '100%' }}>Send Message</Button>
+            <Button type="submit" variant="primary" style={{ width: '100%', marginTop: '1rem', padding: '1.2rem', fontSize: '1.1rem' }}>
+              Send Message (Open Email)
+            </Button>
           </form>
         </div>
       </Section>
