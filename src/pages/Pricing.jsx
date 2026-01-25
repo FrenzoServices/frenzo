@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Section from '../components/ui/Section';
-import { Check, ArrowRight, Zap, Shield, Crown, Loader2, Server, Globe, Cpu, Layout, Code } from 'lucide-react';
+import { Check, ArrowRight, Zap, Shield, Crown, Loader2, Smartphone, Globe, Cpu, Bot, Layers } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Pricing = () => {
@@ -8,35 +8,33 @@ const Pricing = () => {
   const [loading, setLoading] = useState(true);
 
   // Calculator State
-  const [stack, setStack] = useState('react'); // static, react, next
+  const [platform, setPlatform] = useState('web'); // web, mobile, ecosystem
+  const [intelligence, setIntelligence] = useState('none'); // none, chatbot, agent
   const [design, setDesign] = useState('custom'); // template, custom, motion
-  const [pages, setPages] = useState(5);
   const [features, setFeatures] = useState([]);
 
   // Pricing Matrix
   const rates = {
     USD: {
-      base: { static: 50, react: 1500, next: 2500 },
-      design: { template: 0, custom: 1000, motion: 3000 },
-      pageRate: 100, // per page above 1
+      platform: { web: 2500, mobile: 5000, ecosystem: 9000 },
+      intelligence: { none: 0, chatbot: 1500, agent: 5000 },
+      design: { template: 0, custom: 2000, motion: 4000 },
       features: {
         cms: 500,
         auth: 1000,
-        payments: 500,
-        ai: 5000,
-        seo: 300
+        payments: 1000,
+        analytics: 500,
       }
     },
     INR: {
-      base: { static: 2000, react: 45000, next: 85000 },
-      design: { template: 0, custom: 35000, motion: 100000 },
-      pageRate: 2500,
+      platform: { web: 85000, mobile: 180000, ecosystem: 350000 },
+      intelligence: { none: 0, chatbot: 50000, agent: 150000 },
+      design: { template: 0, custom: 60000, motion: 120000 },
       features: {
         cms: 15000,
         auth: 30000,
-        payments: 15000,
-        ai: 150000,
-        seo: 10000
+        payments: 30000,
+        analytics: 15000,
       }
     }
   };
@@ -64,9 +62,9 @@ const Pricing = () => {
   // Calculation Logic
   const calculateTotal = () => {
     const r = rates[currency];
-    let total = r.base[stack];
+    let total = r.platform[platform];
+    total += r.intelligence[intelligence];
     total += r.design[design];
-    total += (Math.max(1, pages) - 1) * r.pageRate; // Base covers 1 page
     
     features.forEach(f => {
       total += r.features[f];
@@ -99,7 +97,7 @@ const Pricing = () => {
             Build Your Empire
           </h1>
           <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 2rem' }}>
-            Start with a simple digital footprint or build a scalable platform. You decide the complexity.
+            From simple web apps to AI-powered mobile ecosystems. Define your scale.
           </p>
           <Link to="/services" style={{ color: 'var(--accent-primary)', fontWeight: '600', textDecoration: 'none', fontSize: '1rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
              Not sure what you need? Explore our Services <ArrowRight size={16} />
@@ -179,38 +177,73 @@ const Pricing = () => {
 
             <h2 style={{ fontSize: '2rem', marginBottom: '2rem' }}>Configure Your Platform</h2>
 
-            {/* 1. Tech Stack */}
+            {/* 1. Platform Type */}
             <div style={{ marginBottom: '2rem' }}>
-               <label style={{ display: 'block', color: '#888', marginBottom: '1rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>1. Technology Core</label>
-               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+               <label style={{ display: 'block', color: '#888', marginBottom: '1rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>1. Platform Scale</label>
+               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.8rem' }}>
+                  {[
+                    { id: 'web', label: 'Web Application', icon: Globe },
+                    { id: 'mobile', label: 'Mobile App', icon: Smartphone },
+                    { id: 'ecosystem', label: 'Ecosystem', icon: Layers }
+                  ].map(p => (
+                    <button 
+                      key={p.id}
+                      onClick={() => setPlatform(p.id)}
+                      style={{ 
+                        padding: '0.8rem', borderRadius: '12px', border: platform === p.id ? '2px solid var(--accent-primary)' : '1px solid #333',
+                        background: platform === p.id ? 'rgba(37, 99, 235, 0.1)' : 'transparent',
+                        textAlign: 'center', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px'
+                      }}
+                    >
+                       <p.icon size={20} color={platform === p.id ? '#fff' : '#666'} />
+                       <span style={{ fontSize: '0.8rem', color: platform === p.id ? '#fff' : '#888', fontWeight: '600' }}>{p.label}</span>
+                    </button>
+                  ))}
+               </div>
+            </div>
+
+            {/* 2. Intelligence Layer */}
+            <div style={{ marginBottom: '2rem' }}>
+               <label style={{ display: 'block', color: '#888', marginBottom: '1rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>2. Intelligence Layer</label>
+               <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.8rem' }}>
                   <button 
-                    onClick={() => setStack('react')}
-                    style={{ 
-                      padding: '1rem', borderRadius: '12px', border: stack === 'react' ? '2px solid var(--accent-primary)' : '1px solid #333',
-                      background: stack === 'react' ? 'rgba(37, 99, 235, 0.1)' : 'transparent',
-                      textAlign: 'left', cursor: 'pointer'
+                    onClick={() => setIntelligence('none')}
+                     style={{ 
+                      padding: '0.8rem 1rem', borderRadius: '8px', 
+                      border: intelligence === 'none' ? '1px solid #fff' : '1px solid #333',
+                      background: intelligence === 'none' ? '#222' : 'transparent', textAlign: 'left', color: '#fff'
                     }}
                   >
-                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#fff', fontWeight: '600' }}><Code size={18}/> React SPA</div>
-                     <div style={{ fontSize: '0.8rem', color: '#666', marginTop: '4px' }}>Fast, interactive, standard.</div>
+                    No AI (Standard Logic)
                   </button>
                   <button 
-                    onClick={() => setStack('next')}
-                    style={{ 
-                      padding: '1rem', borderRadius: '12px', border: stack === 'next' ? '2px solid var(--accent-primary)' : '1px solid #333',
-                      background: stack === 'next' ? 'rgba(37, 99, 235, 0.1)' : 'transparent',
-                      textAlign: 'left', cursor: 'pointer'
+                    onClick={() => setIntelligence('chatbot')}
+                     style={{ 
+                      padding: '0.8rem 1rem', borderRadius: '8px', 
+                      border: intelligence === 'chatbot' ? '1px solid var(--accent-primary)' : '1px solid #333',
+                      background: intelligence === 'chatbot' ? 'rgba(37, 99, 235, 0.15)' : 'transparent', textAlign: 'left', color: '#fff',
+                      display: 'flex', justifyContent: 'space-between', alignItems: 'center'
                     }}
                   >
-                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#fff', fontWeight: '600' }}><Server size={18}/> Next.js</div>
-                     <div style={{ fontSize: '0.8rem', color: '#666', marginTop: '4px' }}>SEO, SSR, Enterprise scale.</div>
+                    <span>Smart Chatbot (RAG/Support)</span> <Bot size={16} color="var(--accent-primary)"/>
+                  </button>
+                  <button 
+                    onClick={() => setIntelligence('agent')}
+                     style={{ 
+                      padding: '0.8rem 1rem', borderRadius: '8px', 
+                      border: intelligence === 'agent' ? '1px solid var(--accent-primary)' : '1px solid #333',
+                      background: intelligence === 'agent' ? 'rgba(37, 99, 235, 0.15)' : 'transparent', textAlign: 'left', color: '#fff',
+                      display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+                    }}
+                  >
+                    <span>Autonomous Agents (Complex Tasks)</span> <Cpu size={16} color="var(--accent-primary)"/>
                   </button>
                </div>
             </div>
 
-            {/* 2. Design Level */}
+            {/* 3. Design Level */}
             <div style={{ marginBottom: '2rem' }}>
-               <label style={{ display: 'block', color: '#888', marginBottom: '1rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>2. Design Fidelity</label>
+               <label style={{ display: 'block', color: '#888', marginBottom: '1rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>3. Design Fidelity</label>
                <div style={{ display: 'flex', gap: '1rem', overflowX: 'auto', paddingBottom: '4px' }}>
                   {['template', 'custom', 'motion'].map(d => (
                     <button 
@@ -230,47 +263,34 @@ const Pricing = () => {
                </div>
             </div>
 
-            {/* 3. Scale */}
-            <div style={{ marginBottom: '2.5rem' }}>
-              <label style={{ display: 'block', color: '#888', marginBottom: '1rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                3. Page Scale: <span style={{ color: '#fff' }}>{pages} Pages</span>
-              </label>
-              <input 
-                type="range" min="1" max="20" value={pages} onChange={(e) => setPages(parseInt(e.target.value))}
-                style={{ width: '100%', accentColor: 'var(--accent-primary)', cursor: 'pointer' }}
-              />
-            </div>
-
-            {/* 4. Power-Ups */}
+            {/* 4. Core Features */}
             <div style={{ marginBottom: '3rem' }}>
-               <label style={{ display: 'block', color: '#888', marginBottom: '1rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>4. Power-Ups</label>
-               <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.8rem' }}>
+               <label style={{ display: 'block', color: '#888', marginBottom: '1rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>4. Core Infrastructure</label>
+               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem' }}>
                   {[
-                    { id: 'cms', label: 'CMS (Easy Content Edits)', icon: Layout },
-                    { id: 'auth', label: 'User Auth & Database', icon: Shield },
-                    { id: 'payments', label: 'Stripe Payments', icon: Zap },
-                    { id: 'ai', label: 'Custom AI Agents', icon: Cpu },
-                    { id: 'seo', label: 'Advanced SEO Suite', icon: Globe }
+                    { id: 'auth', label: 'User Auth + DB' },
+                    { id: 'payments', label: 'Payment Gateway' },
+                    { id: 'cms', label: 'CMS Dashboard' },
+                    { id: 'analytics', label: 'Adv. Analytics' }
                   ].map((feat) => (
                     <div 
                       key={feat.id}
                       onClick={() => toggleFeature(feat.id)}
                       style={{ 
-                        display: 'flex', alignItems: 'center', gap: '12px', padding: '12px', borderRadius: '8px', cursor: 'pointer',
+                        display: 'flex', alignItems: 'center', gap: '10px', padding: '10px', borderRadius: '8px', cursor: 'pointer',
                         border: features.includes(feat.id) ? '1px solid var(--accent-primary)' : '1px solid #222',
                         background: features.includes(feat.id) ? 'rgba(37, 99, 235, 0.05)' : 'transparent',
-                        transition: 'all 0.2s'
+                        fontSize: '0.9rem'
                       }}
                     >
                        <div style={{ 
-                         width: '20px', height: '20px', borderRadius: '4px', border: '1px solid #555', 
+                         width: '16px', height: '16px', borderRadius: '4px', border: '1px solid #555', 
                          background: features.includes(feat.id) ? 'var(--accent-primary)' : 'transparent',
                          display: 'flex', alignItems: 'center', justifyContent: 'center'
                        }}>
-                         {features.includes(feat.id) && <Check size={14} color="#fff" />}
+                         {features.includes(feat.id) && <Check size={12} color="#fff" />}
                        </div>
-                       <feat.icon size={18} color={features.includes(feat.id) ? 'var(--accent-primary)' : '#666'} />
-                       <span style={{ color: features.includes(feat.id) ? '#fff' : '#888', fontWeight: '500' }}>{feat.label}</span>
+                       <span style={{ color: features.includes(feat.id) ? '#fff' : '#888' }}>{feat.label}</span>
                     </div>
                   ))}
                </div>
@@ -287,7 +307,7 @@ const Pricing = () => {
                
                <Link to="/contact" state={{ 
                  plan: 'Custom Empire Build', 
-                 features: `Stack: ${stack}, Design: ${design}, Pages: ${pages}, Extras: ${features.join(', ')}`,
+                 features: `Platform: ${platform}, AI: ${intelligence}, Design: ${design}, Infra: ${features.join(', ')}`,
                  estimatedPrice: formatPrice(calculateTotal())
                }} style={{ 
                   display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', padding: '1.2rem', 
