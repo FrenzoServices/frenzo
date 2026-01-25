@@ -1,12 +1,23 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import Section from '../components/ui/Section';
 import Button from '../components/ui/Button';
 
 const Contact = () => {
+  const { state } = useLocation();
+  
+  const getInitialDetails = () => {
+    if (state?.details) return state.details;
+    if (state?.plan) {
+      return `I'm interested in: ${state.plan}\n\n${state.features ? 'Features: ' + state.features + '\n' : ''}${state.estimatedPrice ? 'Estimated Budget: ' + state.estimatedPrice + '\n' : ''}`;
+    }
+    return '';
+  };
+
   const [formData, setFormData] = React.useState({
     name: '',
     email: '',
-    details: ''
+    details: getInitialDetails()
   });
 
   const handleSubmit = (e) => {

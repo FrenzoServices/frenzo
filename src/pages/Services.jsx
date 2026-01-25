@@ -76,7 +76,7 @@ const Services = () => {
           <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem', fontSize: '1.2rem' }}>
             Talk to Frenzo and we’ll design a custom system tailored to your goals.
           </p>
-          <Button to="/contact" variant="primary" style={{ padding: '1rem 3rem', fontSize: '1.1rem' }}>
+          <Button to="/contact" state={{ details: 'I need help choosing the right solution for my business.' }} variant="primary" style={{ padding: '1rem 3rem', fontSize: '1.1rem' }}>
             Start a Conversation
           </Button>
         </div>

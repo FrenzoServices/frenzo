@@ -46,7 +46,7 @@ const ServiceDetail = () => {
             {service.description}
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <Button to="/contact" variant="primary">Build This Platform</Button>
+            <Button to="/contact" state={{ details: `I am interested in building a ${service.title} (${service.tagline}).` }} variant="primary">Build This Platform</Button>
             <Button to="/contact" variant="outline">Schedule Demo</Button>
           </div>
         </div>
@@ -93,7 +93,7 @@ const ServiceDetail = () => {
            <p style={{ marginBottom: '2.5rem', color: 'var(--text-secondary)' }}>
              Get a fully owned {service.title.toLowerCase()} tailored to your business.
            </p>
-           <Button to="/contact" style={{ background: service.color, color: '#fff', border: 'none' }}>
+           <Button to="/contact" state={{ details: `I want to launch my own ${service.title} platform.` }} style={{ background: service.color, color: '#fff', border: 'none' }}>
              Start Your Project <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
            </Button>
          </div>

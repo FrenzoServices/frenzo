@@ -149,7 +149,7 @@ const Pricing = () => {
                ))}
             </ul>
 
-            <Link to="/contact" style={{ 
+            <Link to="/contact" state={{ plan: `Starter Plan (${currency === 'USD' ? '$50' : '₹2,000'})`, details: 'I want to claim the Launch Offer for a static portfolio site.' }} style={{ 
               width: '100%', 
               padding: '1rem', 
               background: '#fff', 
@@ -285,7 +285,11 @@ const Pricing = () => {
                   </span>
                </div>
                
-               <Link to="/contact" style={{ 
+               <Link to="/contact" state={{ 
+                 plan: 'Custom Empire Build', 
+                 features: `Stack: ${stack}, Design: ${design}, Pages: ${pages}, Extras: ${features.join(', ')}`,
+                 estimatedPrice: formatPrice(calculateTotal())
+               }} style={{ 
                   display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', padding: '1.2rem', 
                   background: 'var(--accent-primary)', color: '#fff', borderRadius: '12px', 
                   textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem',
