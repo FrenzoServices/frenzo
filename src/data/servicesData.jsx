@@ -84,7 +84,7 @@ export const servicesData = [
       'Open Rate Analytics',
       'Landing Page Builder'
     ],
-    demoType: 'dashboard',
+    demoType: 'newsletter',
     bestFor: 'Writers, Journalists'
   },
   {
@@ -101,7 +101,7 @@ export const servicesData = [
       'File Sharing',
       'Session Notes'
     ],
-    demoType: 'dashboard',
+    demoType: 'coaching',
     bestFor: 'Consultants, Advisors'
   },
   {
@@ -118,7 +118,7 @@ export const servicesData = [
       'Direct Messaging',
       'Moderation Tools'
     ],
-    demoType: 'community',
+    demoType: 'social',
     bestFor: 'Alumni, Hobby Groups'
   },
   {
@@ -135,7 +135,7 @@ export const servicesData = [
       'API Infrastructure',
       'Scalable Database'
     ],
-    demoType: 'dashboard',
+    demoType: 'saas',
     bestFor: 'Founders, Startups'
   },
   {
@@ -152,7 +152,7 @@ export const servicesData = [
       'Workflow Triggers',
       'LLM Integration'
     ],
-    demoType: 'dashboard',
+    demoType: 'ai',
     bestFor: 'Agencies, Operations'
   },
   {
@@ -169,7 +169,7 @@ export const servicesData = [
       'SEO Preservation',
       'Legacy System Support'
     ],
-    demoType: 'dashboard',
+    demoType: 'migration',
     bestFor: 'Scaling Businesses'
   }
 ];
