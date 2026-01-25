@@ -5,6 +5,9 @@ import About from './pages/About';
 import Services from './pages/Services';
 import ServiceDetail from './pages/ServiceDetail';
 import Vision from './pages/Vision';
+import Pricing from './pages/Pricing';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 import Contact from './pages/Contact';
 import HowItWorks from './pages/HowItWorks';
 import ScrollToTop from './components/ui/ScrollToTop';
@@ -23,6 +26,9 @@ function App() {
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/vision" element={<Vision />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes>
       </Layout>
     </Router>
