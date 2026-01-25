@@ -62,6 +62,115 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Video Section & Social Proof */}
+      <Section dark>
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <div style={{ 
+            display: 'inline-flex', 
+            alignItems: 'center', 
+            gap: '0.5rem', 
+            background: 'rgba(37, 99, 235, 0.1)', 
+            color: 'var(--accent-primary)', 
+            padding: '0.5rem 1rem', 
+            borderRadius: '2rem', 
+            fontSize: '0.9rem', 
+            fontWeight: '600',
+            marginBottom: '1.5rem'
+          }}>
+             <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-primary)' }}></span>
+             Trusted by 100+ Influencers/Businesses
+          </div>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>We Build Technical Leverage.</h2>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
+            Watch why the world's most successful creators are leaving platforms to build their own systems.
+          </p>
+        </div>
+        
+        <div style={{ 
+          maxWidth: '1000px', 
+          margin: '0 auto', 
+          aspectRatio: '16/9', 
+          background: '#000', 
+          borderRadius: '1rem', 
+          overflow: 'hidden', 
+          position: 'relative',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
+          border: '1px solid var(--border-light)'
+        }}>
+           <video 
+             autoPlay 
+             muted 
+             loop 
+             playsInline
+             style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
+             poster="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1950&q=80"
+           >
+              {/* Working Together / Success Vibe */}
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-people-working-together-in-office-4034-large.mp4" type="video/mp4" />
+           </video>
+           
+           <div style={{ 
+             position: 'absolute', 
+             top: 0, left: 0, right: 0, bottom: 0, 
+             display: 'flex', 
+             alignItems: 'center', 
+             justifyContent: 'center',
+             zIndex: 10,
+             background: 'linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6))'
+           }}>
+              <div style={{ 
+                width: '80px', 
+                height: '80px', 
+                background: 'rgba(255,255,255,0.1)', 
+                backdropFilter: 'blur(10px)',
+                borderRadius: '50%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                cursor: 'pointer',
+                border: '1px solid rgba(255,255,255,0.2)',
+                transition: 'transform 0.2s',
+                boxShadow: '0 0 30px rgba(255,255,255,0.1)'
+              }}
+              className="hover-scale"
+              >
+                 <div style={{ marginLeft: '4px', width: 0, height: 0, borderTop: '12px solid transparent', borderBottom: '12px solid transparent', borderLeft: '20px solid #fff' }}></div>
+              </div>
+           </div>
+
+           <div style={{ 
+              position: 'absolute', 
+              bottom: '2rem', 
+              left: '2rem',
+              right: '2rem',
+              color: '#fff',
+              zIndex: 10
+           }}>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontWeight: 'bold' }}>"Frenzo changed how we scale."</h3>
+              <p style={{ opacity: 0.9, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ color: '#fbbf24' }}>★★★★★</span> 
+                <span>High-Performance Infrastructure Partners</span>
+              </p>
+           </div>
+        </div>
+
+        {/* Trust Badges */}
+        <div style={{ 
+            maxWidth: '900px', 
+            margin: '4rem auto 0', 
+            display: 'flex', 
+            justifyContent: 'center', 
+            gap: '3rem', 
+            flexWrap: 'wrap', 
+            opacity: 0.5, 
+            filter: 'grayscale(100%)' 
+        }}>
+           {['COMPANIES', 'BUILD', 'ON', 'FRENZO', 'TODAY'].map((txt, i) => (
+               <span key={i} style={{ fontSize: '1.2rem', fontWeight: '800', letterSpacing: '2px' }}>{txt}</span>
+           ))}
+        </div>
+      </Section>
+
       {/* Value Prop */}
       <Section>
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
