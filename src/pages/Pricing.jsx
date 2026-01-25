@@ -1,21 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import Section from '../components/ui/Section';
-import { Check, ArrowRight, Zap, Shield, Crown, Loader2 } from 'lucide-react';
+import { Check, ArrowRight, Zap, Shield, Crown, Loader2, Server, Globe, Cpu, Layout, Code } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Pricing = () => {
   const [currency, setCurrency] = useState('USD');
   const [loading, setLoading] = useState(true);
 
-  // Pricing Data
-  const prices = {
+  // Calculator State
+  const [stack, setStack] = useState('react'); // static, react, next
+  const [design, setDesign] = useState('custom'); // template, custom, motion
+  const [pages, setPages] = useState(5);
+  const [features, setFeatures] = useState([]);
+
+  // Pricing Matrix
+  const rates = {
     USD: {
-      launch: '$1,500 - $3,500',
-      scale: '$2,500', 
+      base: { static: 50, react: 1500, next: 2500 },
+      design: { template: 0, custom: 1000, motion: 3000 },
+      pageRate: 100, // per page above 1
+      features: {
+        cms: 500,
+        auth: 1000,
+        payments: 500,
+        ai: 5000,
+        seo: 300
+      }
     },
     INR: {
-      launch: '₹50,000 - ₹1,50,000',
-      scale: '₹2,50,000',
+      base: { static: 2000, react: 45000, next: 85000 },
+      design: { template: 0, custom: 35000, motion: 100000 },
+      pageRate: 2500,
+      features: {
+        cms: 15000,
+        auth: 30000,
+        payments: 15000,
+        ai: 150000,
+        seo: 10000
+      }
     }
   };
 
@@ -36,114 +58,252 @@ const Pricing = () => {
         setLoading(false);
       }
     };
-
     fetchLocation();
   }, []);
 
-  const currentPrices = prices[currency];
+  // Calculation Logic
+  const calculateTotal = () => {
+    const r = rates[currency];
+    let total = r.base[stack];
+    total += r.design[design];
+    total += (Math.max(1, pages) - 1) * r.pageRate; // Base covers 1 page
+    
+    features.forEach(f => {
+      total += r.features[f];
+    });
+
+    return total;
+  };
+
+  const formatPrice = (amount) => {
+    return currency === 'USD' 
+      ? `$${amount.toLocaleString()}` 
+      : `₹${amount.toLocaleString()}`;
+  };
+
+  const toggleFeature = (f) => {
+    if (features.includes(f)) {
+      setFeatures(features.filter(i => i !== f));
+    } else {
+      setFeatures([...features, f]);
+    }
+  };
 
   return (
     <div style={{ paddingTop: '80px' }}>
+      
+      {/* Hero Section */}
       <Section dark>
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <h1 style={{ fontSize: '3.5rem', marginBottom: '1rem', background: 'linear-gradient(to right, #fff, #aaa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            Invest in Ownership
+            Build Your Empire
           </h1>
-          <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto' }}>
-            Stop paying monthly platform rent. Build an asset you own forever.
+          <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 2rem' }}>
+            Start with a simple digital footprint or build a scalable platform. You decide the complexity.
           </p>
-          {loading && <div style={{ marginTop: '1rem', color: '#666', display: 'flex', justifyContent: 'center', gap: '8px' }}><Loader2 className="spin" size={20} /> Loading local pricing...</div>}
+          <Link to="/services" style={{ color: 'var(--accent-primary)', fontWeight: '600', textDecoration: 'none', fontSize: '1rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+             Not sure what you need? Explore our Services <ArrowRight size={16} />
+          </Link>
+          {loading && <div style={{ marginTop: '2rem', color: '#666', display: 'flex', justifyContent: 'center', gap: '8px' }}><Loader2 className="spin" size={20} /> calibration location pricing...</div>}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '4rem', maxWidth: '1200px', margin: '0 auto' }}>
           
-          {/* Starter Plan */}
-          <div style={{ background: '#111', border: '1px solid #333', borderRadius: '16px', padding: '2rem', position: 'relative' }}>
-            <div style={{ marginBottom: '2rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem', color: '#9ca3af' }}>
-                <Zap size={20} /> <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.9rem', fontWeight: 'bold' }}>Launch</span>
-              </div>
-              <h3 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
-                {loading ? '...' : currentPrices.launch}
-              </h3>
-              <p style={{ color: '#666' }}>One-time investment</p>
+          {/* THE ANCHOR: Loss Leader */}
+          <div style={{ 
+            background: '#050505', 
+            border: '1px solid #222', 
+            borderRadius: '24px', 
+            padding: '2.5rem', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            height: 'fit-content' 
+          }}>
+            <div style={{ background: '#222', width: 'fit-content', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', color: '#fff', marginBottom: '1.5rem' }}>
+              THE STARTER
             </div>
-            <p style={{ color: '#ccc', lineHeight: '1.6', marginBottom: '2rem' }}>
-              Perfect for creators validating a new product line or course. Get a custom, owned platform in 2 weeks.
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem' }}>
-              {['Custom React App', 'Stripe Integration', 'Basic CMS', 'Mobile Responsive', 'SEO Optimized'].map(feat => (
-                <div key={feat} style={{ display: 'flex', gap: '10px', color: '#eee' }}>
-                  <Check size={20} color="var(--accent-primary)" /> {feat}
-                </div>
-              ))}
+            
+            <h3 style={{ fontSize: '3.5rem', marginBottom: '0.5rem', fontWeight: '800', lineHeight: 1 }}>
+              {currency === 'USD' ? '$50' : '₹2,000'}
+            </h3>
+            <p style={{ color: '#666', marginBottom: '2rem' }}>One-time payment.</p>
+
+            <div style={{ padding: '1.5rem', background: '#111', borderRadius: '16px', marginBottom: '2rem' }}>
+              <p style={{ fontSize: '0.9rem', color: '#ccc', lineHeight: '1.6' }}>
+                <strong style={{ color: '#fff' }}>The "No Excuses" Plan.</strong><br/>
+                We deploy a professional HTML5 portfolio/landing page for you.
+              </p>
             </div>
-            <Link to="/contact" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', padding: '1rem', background: '#333', color: '#fff', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold' }}>
-              Get Started
+
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem', flex: 1 }}>
+               {[
+                 'Static HTML5/CSS3 Site', 
+                 'Hosted on GitHub Pages (Free)', 
+                 'You provide Domain + Text', 
+                 'Delivery in 48 Hours',
+                 'No CMS / No Backend'
+                ].map((item, i) => (
+                 <li key={i} style={{ display: 'flex', gap: '10px', color: '#888', fontSize: '0.95rem' }}>
+                   <Check size={18} color="#444" /> {item}
+                 </li>
+               ))}
+            </ul>
+
+            <Link to="/contact" style={{ 
+              width: '100%', 
+              padding: '1rem', 
+              background: '#fff', 
+              color: '#000', 
+              borderRadius: '12px', 
+              textAlign: 'center', 
+              fontWeight: 'bold',
+              textDecoration: 'none'
+            }}>
+              Claim Starter Spot
             </Link>
           </div>
 
-          {/* Growth Plan (Highlighted) */}
-          <div style={{ background: '#1a1a1a', border: '2px solid var(--accent-primary)', borderRadius: '16px', padding: '2rem', position: 'relative', transform: 'scale(1.02)', boxShadow: '0 10px 40px rgba(37, 99, 235, 0.1)' }}>
-            <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: 'var(--accent-primary)', color: '#fff', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>MOST POPULAR</div>
+
+          {/* THE CALCULATOR: Empire Builder */}
+          <div style={{ 
+            background: '#111', 
+            border: '1px solid #333', 
+            borderRadius: '24px', 
+            padding: '2.5rem',
+            position: 'relative',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
+          }}>
+            <div style={{ background: 'var(--accent-primary)', position: 'absolute', top: '-15px', right: '2rem', padding: '6px 16px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', color: '#fff' }}>
+              CUSTOM BUILDER
+            </div>
+
+            <h2 style={{ fontSize: '2rem', marginBottom: '2rem' }}>Configure Your Platform</h2>
+
+            {/* 1. Tech Stack */}
             <div style={{ marginBottom: '2rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem', color: 'var(--accent-primary)' }}>
-                <Shield size={20} /> <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.9rem', fontWeight: 'bold' }}>Scale</span>
-              </div>
-              <h3 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
-                 {loading ? '...' : currentPrices.scale}
-              </h3>
-              <p style={{ color: '#666' }}>One-time investment</p>
+               <label style={{ display: 'block', color: '#888', marginBottom: '1rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>1. Technology Core</label>
+               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <button 
+                    onClick={() => setStack('react')}
+                    style={{ 
+                      padding: '1rem', borderRadius: '12px', border: stack === 'react' ? '2px solid var(--accent-primary)' : '1px solid #333',
+                      background: stack === 'react' ? 'rgba(37, 99, 235, 0.1)' : 'transparent',
+                      textAlign: 'left', cursor: 'pointer'
+                    }}
+                  >
+                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#fff', fontWeight: '600' }}><Code size={18}/> React SPA</div>
+                     <div style={{ fontSize: '0.8rem', color: '#666', marginTop: '4px' }}>Fast, interactive, standard.</div>
+                  </button>
+                  <button 
+                    onClick={() => setStack('next')}
+                    style={{ 
+                      padding: '1rem', borderRadius: '12px', border: stack === 'next' ? '2px solid var(--accent-primary)' : '1px solid #333',
+                      background: stack === 'next' ? 'rgba(37, 99, 235, 0.1)' : 'transparent',
+                      textAlign: 'left', cursor: 'pointer'
+                    }}
+                  >
+                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#fff', fontWeight: '600' }}><Server size={18}/> Next.js</div>
+                     <div style={{ fontSize: '0.8rem', color: '#666', marginTop: '4px' }}>SEO, SSR, Enterprise scale.</div>
+                  </button>
+               </div>
             </div>
-            <p style={{ color: '#ccc', lineHeight: '1.6', marginBottom: '2rem' }}>
-              The complete package for established businesses. Deep integrations, automations, and premium design.
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem' }}>
-              {['Everything in Launch', 'User Auth & Profiles', 'Advanced Admin Dashboard', 'Email/Newsletter Engine', 'Data Migration Support', 'Priority Support (30 Days)'].map(feat => (
-                <div key={feat} style={{ display: 'flex', gap: '10px', color: '#eee' }}>
-                  <Check size={20} color="var(--accent-primary)" /> {feat}
-                </div>
-              ))}
+
+            {/* 2. Design Level */}
+            <div style={{ marginBottom: '2rem' }}>
+               <label style={{ display: 'block', color: '#888', marginBottom: '1rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>2. Design Fidelity</label>
+               <div style={{ display: 'flex', gap: '1rem', overflowX: 'auto', paddingBottom: '4px' }}>
+                  {['template', 'custom', 'motion'].map(d => (
+                    <button 
+                      key={d}
+                      onClick={() => setDesign(d)}
+                      style={{ 
+                        flex: 1, padding: '0.8rem', borderRadius: '8px', 
+                        border: design === d ? '1px solid #fff' : '1px solid #333',
+                        background: design === d ? '#222' : 'transparent',
+                        color: design === d ? '#fff' : '#666',
+                        textTransform: 'capitalize', fontWeight: '500'
+                      }}
+                    >
+                      {d}
+                    </button>
+                  ))}
+               </div>
             </div>
-            <Link to="/contact" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', padding: '1rem', background: 'var(--accent-primary)', color: '#fff', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold' }}>
-              Book Scaling Call
-            </Link>
+
+            {/* 3. Scale */}
+            <div style={{ marginBottom: '2.5rem' }}>
+              <label style={{ display: 'block', color: '#888', marginBottom: '1rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                3. Page Scale: <span style={{ color: '#fff' }}>{pages} Pages</span>
+              </label>
+              <input 
+                type="range" min="1" max="20" value={pages} onChange={(e) => setPages(parseInt(e.target.value))}
+                style={{ width: '100%', accentColor: 'var(--accent-primary)', cursor: 'pointer' }}
+              />
+            </div>
+
+            {/* 4. Power-Ups */}
+            <div style={{ marginBottom: '3rem' }}>
+               <label style={{ display: 'block', color: '#888', marginBottom: '1rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>4. Power-Ups</label>
+               <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.8rem' }}>
+                  {[
+                    { id: 'cms', label: 'CMS (Easy Content Edits)', icon: Layout },
+                    { id: 'auth', label: 'User Auth & Database', icon: Shield },
+                    { id: 'payments', label: 'Stripe Payments', icon: Zap },
+                    { id: 'ai', label: 'Custom AI Agents', icon: Cpu },
+                    { id: 'seo', label: 'Advanced SEO Suite', icon: Globe }
+                  ].map((feat) => (
+                    <div 
+                      key={feat.id}
+                      onClick={() => toggleFeature(feat.id)}
+                      style={{ 
+                        display: 'flex', alignItems: 'center', gap: '12px', padding: '12px', borderRadius: '8px', cursor: 'pointer',
+                        border: features.includes(feat.id) ? '1px solid var(--accent-primary)' : '1px solid #222',
+                        background: features.includes(feat.id) ? 'rgba(37, 99, 235, 0.05)' : 'transparent',
+                        transition: 'all 0.2s'
+                      }}
+                    >
+                       <div style={{ 
+                         width: '20px', height: '20px', borderRadius: '4px', border: '1px solid #555', 
+                         background: features.includes(feat.id) ? 'var(--accent-primary)' : 'transparent',
+                         display: 'flex', alignItems: 'center', justifyContent: 'center'
+                       }}>
+                         {features.includes(feat.id) && <Check size={14} color="#fff" />}
+                       </div>
+                       <feat.icon size={18} color={features.includes(feat.id) ? 'var(--accent-primary)' : '#666'} />
+                       <span style={{ color: features.includes(feat.id) ? '#fff' : '#888', fontWeight: '500' }}>{feat.label}</span>
+                    </div>
+                  ))}
+               </div>
+            </div>
+
+            {/* TOTAL */}
+            <div style={{ borderTop: '1px solid #333', paddingTop: '2rem', marginTop: '2rem' }}>
+               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1.5rem' }}>
+                  <span style={{ color: '#888' }}>Estimated Investment</span>
+                  <span style={{ fontSize: '2.5rem', fontWeight: 'bold', lineHeight: 1, color: 'var(--accent-primary)' }}>
+                    {loading ? '...' : formatPrice(calculateTotal())}
+                  </span>
+               </div>
+               
+               <Link to="/contact" style={{ 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', padding: '1.2rem', 
+                  background: 'var(--accent-primary)', color: '#fff', borderRadius: '12px', 
+                  textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem',
+                  boxShadow: '0 4px 20px rgba(37, 99, 235, 0.3)'
+                }}>
+                  Book Build Strategy <ArrowRight size={20} style={{ marginLeft: '10px' }} />
+               </Link>
+               <p style={{ textAlign: 'center', fontSize: '0.8rem', color: '#555', marginTop: '1rem' }}>
+                 *Final quote provided after technical discovery call.
+               </p>
+            </div>
+
           </div>
 
-          {/* Enterprise Plan */}
-          <div style={{ background: '#111', border: '1px solid #333', borderRadius: '16px', padding: '2rem', position: 'relative' }}>
-            <div style={{ marginBottom: '2rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem', color: '#f59e0b' }}>
-                <Crown size={20} /> <span style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.9rem', fontWeight: 'bold' }}>Empire</span>
-              </div>
-              <h3 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Custom</h3>
-              <p style={{ color: '#666' }}>Tailored architecture</p>
-            </div>
-            <p style={{ color: '#ccc', lineHeight: '1.6', marginBottom: '2rem' }}>
-              For complex platforms requiring dedicated infrastructure, AI agents, and custom workflow automation.
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem' }}>
-              {['Dedicated Cloud Infra', 'Custom AI Agents', 'SLA Support', 'White-glove Onboarding', 'Legacy System Integration'].map(feat => (
-                <div key={feat} style={{ display: 'flex', gap: '10px', color: '#eee' }}>
-                  <Check size={20} color="var(--accent-primary)" /> {feat}
-                </div>
-              ))}
-            </div>
-            <Link to="/contact" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', padding: '1rem', background: '#333', color: '#fff', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold' }}>
-              Contact Sales
-            </Link>
-          </div>
-
-        </div>
-
-        <div style={{ textAlign: 'center', marginTop: '6rem' }}>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>No monthly fees. No revenue share.</h3>
-            <p style={{ color: '#666' }}>We charge per project. You own the code.</p>
         </div>
       </Section>
     </div>
   );
 };
-
 
 export default Pricing;

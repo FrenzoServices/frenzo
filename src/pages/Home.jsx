@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Section from '../components/ui/Section';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import { ArrowRight, Globe, Cpu, DollarSign, Layers } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
+  const [currency, setCurrency] = useState('USD');
+
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
+        if (data.country_code === 'IN') {
+          setCurrency('INR');
+        } else {
+          setCurrency('USD');
+        }
+      } catch (error) {
+        console.error('Failed to detect location, defaulting to USD', error);
+        setCurrency('USD');
+      }
+    };
+    fetchLocation();
+  }, []);
+
   return (
     <>
       {/* Hero Section */}
@@ -17,6 +38,30 @@ const Home = () => {
         overflow: 'hidden',
         paddingTop: 'var(--header-height)'
       }}>
+        {/* PROMO BANNER */}
+        <div style={{
+           position: 'absolute',
+           top: 'calc(var(--header-height) + 20px)',
+           left: '50%',
+           transform: 'translateX(-50%)',
+           zIndex: 10,
+           background: 'rgba(37, 99, 235, 0.2)',
+           border: '1px solid var(--accent-primary)',
+           padding: '8px 20px',
+           borderRadius: '30px',
+           backdropFilter: 'blur(10px)',
+           display: 'flex',
+           alignItems: 'center',
+           gap: '10px',
+           cursor: 'pointer'
+        }}>
+           <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#fff' }}>🔥 Launch Offer:</span>
+           <span style={{ fontSize: '0.9rem', color: '#ccc' }}>
+             Get a Portfolio Site for just <strong style={{ color: '#fff' }}>{currency === 'USD' ? '$50' : '₹2,000'}</strong>
+           </span>
+           <Link to="/pricing" style={{ marginLeft: '10px', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)', textDecoration: 'none' }}>Claim Deal &rarr;</Link>
+        </div>
+
         {/* Background elements */}
         <div style={{
           position: 'absolute',
