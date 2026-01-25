@@ -24,6 +24,7 @@ const Navbar = () => {
         <Link to="/" className="nav-link" onClick={closeMenu}>Home</Link>
         <Link to="/about" className="nav-link" onClick={closeMenu}>About</Link>
         <Link to="/services" className="nav-link" onClick={closeMenu}>Services</Link>
+        <Link to="/pricing" className="nav-link" onClick={closeMenu}>Pricing</Link>
         <Link to="/how-it-works" className="nav-link" onClick={closeMenu}>Process</Link>
         <Link to="/vision" className="nav-link" onClick={closeMenu}>Vision</Link>
         <Link to="/contact" className="btn-primary" onClick={closeMenu}>Contact</Link>

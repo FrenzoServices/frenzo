@@ -41,7 +41,11 @@ const Footer = () => {
               <a href="#" style={{ color: '#888' }}><Twitter size={20} /></a>
               <a href="#" style={{ color: '#888' }}><Linkedin size={20} /></a>
               <a href="#" style={{ color: '#888' }}><Instagram size={20} /></a>
-              <a href="mailto:hello@frenzo.services" style={{ color: '#888' }}><Mail size={20} /></a>
+              <a href="mailto:contact@frenzo.services" style={{ color: '#888' }}><Mail size={20} /></a>
+           </div>
+           <div style={{ marginTop: '1rem', color: '#666', fontSize: '0.9rem' }}>
+              <div>+91 8904045305</div>
+              <div>contact@frenzo.services</div>
            </div>
         </div>
 
