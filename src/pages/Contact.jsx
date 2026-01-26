@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Section from '../components/ui/Section';
 import Button from '../components/ui/Button';
 
@@ -20,11 +20,28 @@ const Contact = () => {
     details: getInitialDetails()
   });
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const subject = `Project Inquiry from ${formData.name}`;
     const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nProject Details:\n${formData.details}`;
+    
+    // 1. Google Ads Conversion Event
+    if (window.gtag) {
+      window.gtag('event', 'generate_lead', {
+        'event_category': 'form',
+        'event_label': 'contact_submit'
+      });
+    }
+
+    // 2. Open Email Client
     window.location.href = `mailto:contact@frenzo.services?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // 3. Redirect to Thank You Page (Visual Confirmation)
+    setTimeout(() => {
+       navigate('/thank-you');
+    }, 1000);
   };
 
   const handleChange = (e) => {

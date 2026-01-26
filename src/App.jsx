@@ -10,6 +10,7 @@ import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import Contact from './pages/Contact';
 import HowItWorks from './pages/HowItWorks';
+import ThankYou from './pages/ThankYou';
 import ScrollToTop from './components/ui/ScrollToTop';
 
 // Simple ScrollToTop component
@@ -29,6 +30,7 @@ function App() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/thank-you" element={<ThankYou />} />
         </Routes>
       </Layout>
     </Router>
