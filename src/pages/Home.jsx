@@ -39,28 +39,7 @@ const Home = () => {
         paddingTop: 'var(--header-height)'
       }}>
         {/* PROMO BANNER */}
-        <div style={{
-           position: 'absolute',
-           top: 'calc(var(--header-height) + 20px)',
-           left: '50%',
-           transform: 'translateX(-50%)',
-           zIndex: 10,
-           background: 'rgba(37, 99, 235, 0.2)',
-           border: '1px solid var(--accent-primary)',
-           padding: '8px 20px',
-           borderRadius: '30px',
-           backdropFilter: 'blur(10px)',
-           display: 'flex',
-           alignItems: 'center',
-           gap: '10px',
-           cursor: 'pointer'
-        }}>
-           <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#fff' }}>🔥 Launch Offer:</span>
-           <span style={{ fontSize: '0.9rem', color: '#ccc' }}>
-             Get a Portfolio Site for just <strong style={{ color: '#fff' }}>{currency === 'USD' ? '$50' : '₹2,000'}</strong>
-           </span>
-           <Link to="/pricing" style={{ marginLeft: '10px', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)', textDecoration: 'none' }}>Claim Deal &rarr;</Link>
-        </div>
+
 
         {/* Background elements */}
         <div style={{
