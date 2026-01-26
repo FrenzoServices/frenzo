@@ -62,10 +62,20 @@ const Contact = () => {
                 <div style={{ color: '#888', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '0.4rem' }}>Email</div>
                 <div style={{ fontWeight: '600' }}>contact@frenzo.services</div>
              </div>
-             <div style={{ background: '#111', padding: '1rem 1.5rem', borderRadius: '8px', border: '1px solid #333' }}>
+             <a 
+               href="tel:+918904045305" 
+               onClick={(e) => {
+                 // Check if global conversion function exists
+                 if (window.gtag_report_conversion) {
+                   e.preventDefault();
+                   window.gtag_report_conversion('tel:+918904045305');
+                 }
+               }}
+               style={{ background: '#111', padding: '1rem 1.5rem', borderRadius: '8px', border: '1px solid #333', textDecoration: 'none', color: 'inherit', display: 'block', cursor: 'pointer' }}
+             >
                 <div style={{ color: '#888', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '0.4rem' }}>Phone</div>
                 <div style={{ fontWeight: '600' }}>+91 8904045305</div>
-             </div>
+             </a>
           </div>
           
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left' }}>

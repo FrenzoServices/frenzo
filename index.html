@@ -10,6 +10,27 @@
       gtag('js', new Date());
 
       gtag('config', 'AW-17906236393');
+      
+      // Phone Call Lead Config
+      gtag('config', 'AW-17906236393/wHcPCLqTj-0bEOn3rdpC', {
+        'phone_conversion_number': '+91 8904045305'
+      });
+
+      // Click to Call Conversion Snippet
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-17906236393/PXikCLeTj-0bEOn3rdpC',
+            'value': 1.0,
+            'currency': 'INR',
+            'event_callback': callback
+        });
+        return false;
+      }
     </script>
     <link rel="icon" type="image/png" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
