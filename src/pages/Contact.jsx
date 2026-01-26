@@ -17,6 +17,7 @@ const Contact = () => {
   const [formData, setFormData] = React.useState({
     name: '',
     email: '',
+    phone: '',
     details: getInitialDetails()
   });
 
@@ -25,7 +26,7 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const subject = `Project Inquiry from ${formData.name}`;
-    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nProject Details:\n${formData.details}`;
+    const body = `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'Not provided'}\n\nProject Details:\n${formData.details}`;
     
     // 1. Google Ads Conversion Event
     if (window.gtag) {
@@ -115,6 +116,24 @@ const Contact = () => {
                   borderRadius: '0.5rem'
                 }} 
                 placeholder="Enter your email" 
+              />
+            </div>
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Phone (Optional)</label>
+              <input 
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                type="tel" 
+                style={{ 
+                  width: '100%', 
+                  padding: '1rem', 
+                  background: 'var(--bg-secondary)', 
+                  border: '1px solid var(--border-light)', 
+                  color: 'var(--text-primary)',
+                  borderRadius: '0.5rem'
+                }} 
+                placeholder="+91 99999 99999" 
               />
             </div>
             <div>

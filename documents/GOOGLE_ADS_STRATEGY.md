@@ -246,3 +246,22 @@ We will run **two separate campaigns** because the audiences are completely diff
 1.  **Don't spread budget too thin.** It's better to own one keyword (e.g., "SaaS Builder") than to barely show up for 50.
 2.  **Check "Search Terms" weekly.** Go to Keywords > Search Terms. Look at what people _actually_ typed. If you see "cheap wix design", add "wix" to Negative Keywords immediately.
 3.  **Speed Kills.** Call your leads within 5 minutes.
+
+---
+
+## ✅ Phase 2: Final Verification (Pre-Launch)
+
+1.  **GCLID (Google Click ID) Check**:
+    - **How it works**: When someone clicks your ad, Google adds `?gclid=...` to your URL.
+    - **Action**: Your website is a Single Page App (React). It **automatically** preserves these tracking codes. You do not need to do anything extra. The tracking script I installed in `index.html` detects this automatically.
+
+2.  **Call Assets (Action Required in Google Ads)**:
+    - The code on the website is ready (`gtag` config set).
+    - **You must now go to Google Ads > Assets > Call**:
+      - Create a new **Call Asset**.
+      - Phone Number: `+91 8904045305`
+      - **Important**: Make sure "Call Reporting" is turned **ON**.
+    - _Result_: Google will dynamically swap your phone number on the website with a Google Forwarding Number to track the call duration and status.
+
+3.  **Confirm Conversions**:
+    - Use the "Tag Assistant" (a Chrome Extension) or wait 24 hours after launch to see if the status changes from "Unverified" to "No recent conversions" (which means it's active).
