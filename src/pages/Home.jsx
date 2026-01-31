@@ -30,30 +30,40 @@ const Home = () => {
     <>
       {/* Hero Section */}
       <section style={{
-        minHeight: '90vh',
+        minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
-        background: 'radial-gradient(circle at 50% 50%, #111 0%, #050505 60%)',
+        background: '#050505',
         position: 'relative',
         overflow: 'hidden',
         paddingTop: 'var(--header-height)'
       }}>
-        {/* PROMO BANNER */}
-
-
-        {/* Background elements */}
+        {/* Background Video */}
         <div style={{
           position: 'absolute',
-          top: '20%',
-          left: '15%',
-          width: '400px',
-          height: '400px',
-          background: 'var(--accent-primary)',
-          filter: 'blur(180px)',
-          opacity: 0.1,
-          borderRadius: '50%',
+          inset: 0,
           zIndex: 0
-        }} />
+        }}>
+          <video 
+            autoPlay muted loop playsInline
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'cover', 
+              opacity: 0.25
+            }}
+            poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+          >
+             <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-network-connection-lines-1-large.mp4" type="video/mp4" />
+          </video>
+          {/* Gradient Overlay */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'radial-gradient(circle at center, rgba(5,5,5,0.3) 0%, #050505 100%)',
+            backdropFilter: 'blur(2px)'
+          }} />
+        </div>
         
         <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
           <h1 style={{ 

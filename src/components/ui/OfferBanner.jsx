@@ -3,30 +3,12 @@ import { Link } from 'react-router-dom';
 import { X } from 'lucide-react';
 
 const OfferBanner = () => {
-  const [currency, setCurrency] = useState('USD');
   const [visible, setVisible] = useState(true);
-
   useEffect(() => {
     // Check if user dismissed it previously
     if (localStorage.getItem('frenzo_offer_dismissed')) {
       setVisible(false);
-      return;
     }
-
-    const fetchLocation = async () => {
-      try {
-        const res = await fetch('https://ipapi.co/json/');
-        const data = await res.json();
-        if (data.country_code === 'IN') {
-          setCurrency('INR');
-        } else {
-          setCurrency('USD');
-        }
-      } catch (error) {
-        setCurrency('USD');
-      }
-    };
-    fetchLocation();
   }, []);
 
   if (!visible) return null;
@@ -53,7 +35,7 @@ const OfferBanner = () => {
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
          <span style={{ fontSize: '1rem' }}>🔥</span>
          <span style={{ fontSize: '0.9rem', color: '#eee' }}>
-           Launch Offer: Portfolio Site for <strong style={{ color: '#fff' }}>{currency === 'USD' ? '$50' : '₹2,000'}</strong>
+           Launch Offer: Portfolio Site for <strong style={{ color: '#fff' }}>₹2,000</strong>
          </span>
       </div>
       
