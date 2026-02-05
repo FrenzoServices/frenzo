@@ -8,6 +8,7 @@ import {
   signInWithPhoneNumber
 } from 'firebase/auth';
 import { auth } from '../../../lib/firebase';
+import { analyticsService } from '../../analytics/analyticsService';
 
 /**
  * Service to handle all Authentication interactions with Firebase.
@@ -30,6 +31,7 @@ export const authService = {
               displayName: name
           });
       }
+      analyticsService.logLogin('email', userCredential.user.uid);
       return userCredential.user;
     } catch (error) {
       throw mapFirebaseError(error);
@@ -45,6 +47,7 @@ export const authService = {
   login: async (email, password) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      analyticsService.logLogin('email', userCredential.user.uid);
       return userCredential.user;
     } catch (error) {
       throw mapFirebaseError(error);
@@ -59,6 +62,7 @@ export const authService = {
     try {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, provider);
+      analyticsService.logLogin('google', userCredential.user.uid);
       return userCredential.user;
     } catch (error) {
       throw mapFirebaseError(error);
@@ -89,6 +93,7 @@ export const authService = {
   verifyPhoneCode: async (confirmationResult, code) => {
       try {
           const result = await confirmationResult.confirm(code);
+          analyticsService.logLogin('phone', result.user.uid);
           return result.user;
       } catch (error) {
           throw mapFirebaseError(error);
@@ -131,4 +136,4 @@ const mapFirebaseError = (error) => {
             message = error.message;
     }
     return new Error(message);
-};
+  };

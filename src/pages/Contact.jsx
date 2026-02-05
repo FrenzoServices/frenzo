@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 import Section from '../components/ui/Section';
 import Button from '../components/ui/Button';
 
 const Contact = () => {
   const { state } = useLocation();
+  const { currentUser } = useAuth();
   
   const getInitialDetails = () => {
     if (state?.details) return state.details;
@@ -22,6 +26,39 @@ const Contact = () => {
   });
 
   const navigate = useNavigate();
+
+  // Smart Fill Logic
+  useEffect(() => {
+    if (currentUser) {
+        // 1. Basic Auth Info
+        setFormData(prev => ({
+            ...prev,
+            name: currentUser.displayName || prev.name,
+            email: currentUser.email || prev.email,
+            phone: currentUser.phoneNumber || prev.phone
+        }));
+
+        // 2. Fetch extended profile from Firestore (for phone/company)
+        const fetchProfile = async () => {
+            try {
+                const docRef = doc(db, "users", currentUser.uid);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    setFormData(prev => ({
+                        ...prev,
+                        phone: data.phoneNumber || prev.phone, // Firestore phone overrides if present
+                        // details: data.requirements ? `${prev.details}\n\n[Business Context]: ${data.requirements}` : prev.details 
+                        // Optional: Append business context to details? Maybe too intrusive.
+                    }));
+                }
+            } catch (err) {
+                console.error("Error auto-filling contact form:", err);
+            }
+        };
+        fetchProfile();
+    }
+  }, [currentUser]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,7 +103,6 @@ const Contact = () => {
              <a 
                href="tel:+918904045305" 
                onClick={(e) => {
-                 // Check if global conversion function exists
                  if (window.gtag_report_conversion) {
                    e.preventDefault();
                    window.gtag_report_conversion('tel:+918904045305');
@@ -88,13 +124,16 @@ const Contact = () => {
                 onChange={handleChange}
                 type="text" 
                 required
+                disabled={!!currentUser?.displayName}
                 style={{ 
                   width: '100%', 
                   padding: '1rem', 
                   background: 'var(--bg-secondary)', 
                   border: '1px solid var(--border-light)', 
                   color: 'var(--text-primary)',
-                  borderRadius: '0.5rem'
+                  borderRadius: '0.5rem',
+                  opacity: currentUser?.displayName ? 0.7 : 1,
+                  cursor: currentUser?.displayName ? 'not-allowed' : 'text'
                 }} 
                 placeholder="Enter your name" 
               />
@@ -107,13 +146,16 @@ const Contact = () => {
                 onChange={handleChange}
                 type="email" 
                 required
+                disabled={!!currentUser?.email}
                 style={{ 
                   width: '100%', 
                   padding: '1rem', 
                   background: 'var(--bg-secondary)', 
                   border: '1px solid var(--border-light)', 
                   color: 'var(--text-primary)',
-                  borderRadius: '0.5rem'
+                  borderRadius: '0.5rem',
+                  opacity: currentUser?.email ? 0.7 : 1,
+                  cursor: currentUser?.email ? 'not-allowed' : 'text'
                 }} 
                 placeholder="Enter your email" 
               />
@@ -125,16 +167,20 @@ const Contact = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 type="tel" 
+                disabled={!!currentUser} /* Disable phone edit here if logged in, encourage profile update */
                 style={{ 
                   width: '100%', 
                   padding: '1rem', 
                   background: 'var(--bg-secondary)', 
                   border: '1px solid var(--border-light)', 
                   color: 'var(--text-primary)',
-                  borderRadius: '0.5rem'
+                  borderRadius: '0.5rem',
+                  opacity: currentUser ? 0.7 : 1,
+                  cursor: currentUser ? 'not-allowed' : 'text'
                 }} 
                 placeholder="+91 99999 99999" 
               />
+              {currentUser && <small style={{color: 'var(--text-tertiary)'}}>Update phone in your Dashboard</small>}
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Project Details</label>

@@ -20,12 +20,15 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './features/auth/components/ProtectedRoute';
 
+import AnalyticsTracker from './components/layout/AnalyticsTracker';
+
 // Simple ScrollToTop component
 function App() {
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <ScrollToTop />
       <AuthProvider>
+        <AnalyticsTracker />
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
