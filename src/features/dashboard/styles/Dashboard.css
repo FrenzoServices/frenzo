@@ -1,5 +1,5 @@
 .dashboard-container {
-  padding: 8rem 2rem 4rem; /* Top padding to account for fixed navbar */
+  padding: 8rem 2rem 4rem;
   min-height: 100vh;
   margin: 0 auto;
   max-width: var(--container-width);
@@ -10,22 +10,9 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 3rem;
-  border-bottom: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
   padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-light);
 }
-
-@media (max-width: 480px) {
-  .dashboard-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-  .logout-btn {
-    width: 100%;
-    text-align: center;
-  }
-} 
 
 .user-welcome h1 {
   font-size: 2rem;
@@ -37,32 +24,69 @@
   font-size: 0.9rem;
 }
 
-.logout-btn {
-  padding: 0.6rem 1.2rem;
-  background-color: transparent;
-  border: 1px solid var(--border-light);
-  color: var(--text-secondary);
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.logout-btn:hover {
-  border-color: #ef4444;
-  color: #ef4444;
-}
-
+/* Grid Layout */
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 350px 1fr; /* Fixed width profile, remaining for activity */
   gap: 2rem;
+  align-items: start;
 }
 
-@media (max-width: 768px) {
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+/* Profile Card */
+.profile-card {
+    position: sticky;
+    top: 6rem; /* Stays visible while scrolling activities */
+}
+
+.profile-preview {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.profile-avatar-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent-primary);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.profile-msg {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+.profile-msg.success { color: #22c55e; background: rgba(34, 197, 94, 0.1); }
+.profile-msg.error { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+
+
+/* Responsive */
+@media (max-width: 900px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .profile-card {
+      position: static;
   }
 }
 
+/* Card & Form Styles */
 .card {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-light);
@@ -82,6 +106,18 @@
   gap: 1rem;
 }
 
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
 .activity-input {
   background-color: var(--bg-tertiary);
   border: 1px solid var(--border-light);
@@ -98,10 +134,17 @@
   border-radius: 8px;
   font-weight: 500;
   transition: background-color 0.2s;
+  border: none;
+  cursor: pointer;
 }
 
 .log-btn:hover {
   background-color: #1d4ed8;
+}
+
+.log-btn:disabled {
+    opacity: 0.6;
+    cursor: default;
 }
 
 .activity-list {

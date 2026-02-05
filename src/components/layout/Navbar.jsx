@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import UserMenu from './UserMenu';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +28,11 @@ const Navbar = () => {
         <Link to="/pricing" className="nav-link" onClick={closeMenu}>Pricing</Link>
         <Link to="/how-it-works" className="nav-link" onClick={closeMenu}>Process</Link>
         <Link to="/vision" className="nav-link" onClick={closeMenu}>Vision</Link>
-        <Link to="/contact" className="btn-primary" onClick={closeMenu}>Contact</Link>
+        
+        {/* User Menu (Handles Login/Avatar) */}
+        <div onClick={(e) => e.stopPropagation()}>
+            <UserMenu />
+        </div>
       </div>
     </nav>
   );
