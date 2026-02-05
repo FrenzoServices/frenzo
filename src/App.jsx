@@ -13,26 +13,60 @@ import HowItWorks from './pages/HowItWorks';
 import ThankYou from './pages/ThankYou';
 import ScrollToTop from './components/ui/ScrollToTop';
 
+/* Auth Imports */
+import { AuthProvider } from './context/AuthContext';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import ProtectedRoute from './features/auth/components/ProtectedRoute';
+
 // Simple ScrollToTop component
 function App() {
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <ScrollToTop />
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/services/:id" element={<ServiceDetail />} />
-          <Route path="/how-it-works" element={<HowItWorks />} />
-          <Route path="/vision" element={<Vision />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/thank-you" element={<ThankYou />} />
-        </Routes>
-      </Layout>
+      <AuthProvider>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            
+            {/* Public Services List */}
+            <Route path="/services" element={<Services />} />
+            
+            {/* Protected Service Detail */}
+            <Route path="/services/:id" element={
+              <ProtectedRoute>
+                <ServiceDetail />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/how-it-works" element={<HowItWorks />} />
+            <Route path="/vision" element={<Vision />} />
+            <Route path="/contact" element={<Contact />} />
+            
+            {/* Protected Pricing */}
+            <Route path="/pricing" element={
+              <ProtectedRoute>
+                <Pricing />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/thank-you" element={<ThankYou />} />
+            
+            {/* Auth Routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+          </Routes>
+        </Layout>
+      </AuthProvider>
     </Router>
   );
 }

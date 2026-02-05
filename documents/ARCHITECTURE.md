@@ -14,6 +14,11 @@ src/
 │   ├── layout/      # Organisms: Navbar, Footer, Section
 ├── config/          # Global configuration (constants, environment)
 ├── features/        # Business Logic & Complex Features
+│   ├── auth/        # FEATURE: Authentication (New)
+│   │   ├── api/     # Firebase interaction layer (Service)
+│   │   ├── hooks/   # useAuth, useLogin, etc.
+│   │   ├── components/ # LoginForm, RegisterForm
+│   │   └── index.js # Public exports
 │   ├── pricing/     # FEATURE: Pricing Engine
 │   │   ├── hooks/   # Logic (usePricingCalculator)
 │   │   ├── components/ # Sub-components (PricingCard, Calculator)
@@ -22,7 +27,7 @@ src/
 │   ├── contact/     # FEATURE: Contact Forms & Logic
 │   └── solutions/   # FEATURE: Services & Use Cases
 ├── hooks/           # Shared global hooks (useScroll, useWindowSize)
-├── lib/             # Utilities and helpers (date formatting, currency)
+├── lib/             # Utilities and helpers (firebase, date formatting)
 ├── pages/           # Page Routings (Page-level composition only)
 └── styles/          # Global styles
 ```
@@ -62,3 +67,18 @@ For complex UI elements (like the Calculator or Tabs), use Compound Components t
 - **CSS**: Styled Components or CSS Modules preferred over inline styles for complex components. (We are currently using inline/global CSS, which we will gradually structure).
 - **Exports**: Use Named Exports for better tree-shaking and predictability.
 - **No Magic Numbers**: hardcoded values like `25000` must be in a constants file.
+
+## 5. Authentication & Data Strategy
+
+### A. Authentication (feature/auth)
+
+We follow the **Repository/Service Pattern** (loosely) to decouple React Components from Firebase SDK.
+
+- **Service Layer (`features/auth/api`)**: Direct calls to `firebase/auth` and `firestore`. Returns promises/data, not SDK objects if possible.
+- **Global Store (`context/AuthContext`)**: Holds the _User State_ (isLoggedIn, userProfile).
+- **Hooks (`hooks/useAuth`)**: Consumes the context. Components only use this hook.
+
+### B. Persistence
+
+- **Infrastructure (`lib/firebase.js`)**: Pure configuration export.
+- **Data Access**: Feature-specific API files (e.g., `features/dashboard/api/activityService.js`) handle Firestore CRUD. Components never call `getDoc` directly.
