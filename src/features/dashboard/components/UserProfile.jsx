@@ -21,6 +21,9 @@ const UserProfile = ({ targetUserId, readOnly = false }) => {
     const [lastLogin, setLastLogin] = useState(null);
     const [createdAt, setCreatedAt] = useState(null);
     
+    // Initial Data for comparison
+    const [initialData, setInitialData] = useState({});
+    
     // Activity State (for Admins)
     const [history, setHistory] = useState([]);
     
@@ -71,6 +74,13 @@ const UserProfile = ({ targetUserId, readOnly = false }) => {
                     if (!data.email) setEmail(currentUser.email || '');
                     if (!data.photoURL) setPhotoURL(currentUser.photoURL || '');
                 }
+                // Set Initial Data for change tracking
+                setInitialData({
+                    displayName: data.displayName || displayName,
+                    phoneNumber: data.phoneNumber || phoneNumber,
+                    companyName: data.companyName || companyName,
+                    requirements: data.requirements || requirements
+                });
             } else {
                  // No DB profile yet? 
                  if (uid === currentUser?.uid) {
@@ -78,6 +88,13 @@ const UserProfile = ({ targetUserId, readOnly = false }) => {
                      setEmail(currentUser.email || '');
                      setPhoneNumber(currentUser.phoneNumber || '');
                      setPhotoURL(currentUser.photoURL || '');
+                     
+                     setInitialData({
+                         displayName: currentUser.displayName || '',
+                         phoneNumber: currentUser.phoneNumber || '',
+                         companyName: '',
+                         requirements: ''
+                     });
                  } else {
                      setMsg({ text: 'User profile not found.', type: 'error' });
                  }
@@ -139,6 +156,14 @@ const UserProfile = ({ targetUserId, readOnly = false }) => {
                 requirements,
                 updatedAt: new Date()
             }, { merge: true });
+            
+            // Update initial data after save so button disables again
+            setInitialData({
+                displayName,
+                phoneNumber,
+                companyName,
+                requirements
+            });
 
             setMsg({ text: 'Profile updated successfully!', type: 'success' });
         } catch (error) {
@@ -296,7 +321,27 @@ const UserProfile = ({ targetUserId, readOnly = false }) => {
                 )}
 
                 {!readOnly && (
-                    <button type="submit" className="log-btn" disabled={loading}>
+                    <button 
+                        type="submit" 
+                        className="log-btn" 
+                        disabled={
+                            loading || 
+                            (initialData.displayName === displayName && 
+                             initialData.phoneNumber === phoneNumber && 
+                             initialData.companyName === companyName && 
+                             initialData.requirements === requirements)
+                        }
+                        style={{ 
+                            opacity: (initialData.displayName === displayName && 
+                                      initialData.phoneNumber === phoneNumber && 
+                                      initialData.companyName === companyName && 
+                                      initialData.requirements === requirements) ? 0.5 : 1,
+                            cursor: (initialData.displayName === displayName && 
+                                     initialData.phoneNumber === phoneNumber && 
+                                     initialData.companyName === companyName && 
+                                     initialData.requirements === requirements) ? 'not-allowed' : 'pointer'
+                        }}
+                    >
                         {loading ? 'Saving Profile...' : 'Save Profile'}
                     </button>
                 )}
