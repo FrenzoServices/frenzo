@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { X } from 'lucide-react';
-import { PRICING_RATES } from '../constants';
+import { PRICING_RATES } from '../../constants';
 
 const OfferBanner = () => {
   const [visible, setVisible] = useState(true);
@@ -36,7 +36,8 @@ const OfferBanner = () => {
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
          <span style={{ fontSize: '1rem' }}>🔥</span>
          <span style={{ fontSize: '0.9rem', color: '#eee' }}>
-           Launch Offer: Portfolio Site for <strong style={{ color: '#fff' }}>₹{PRICING_RATES.type.starter.toLocaleString()}</strong>
+           Launch Offer: Portfolio Site for <span style={{ textDecoration: 'line-through', color: '#888', marginRight: '6px' }}>₹{(PRICING_RATES.type.starter * PRICING_RATES.DISCOUNT_MULTIPLIER).toLocaleString()}</span>
+           <strong style={{ color: '#fff' }}>₹{PRICING_RATES.type.starter.toLocaleString()}</strong>
          </span>
       </div>
       

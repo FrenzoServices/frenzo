@@ -37,7 +37,10 @@ export const PRICING_RATES = {
   },
 
   // Per Page Rate (for standard sites)
-  pageRate: 2000
+  pageRate: 2000,
+  
+  // Discount Logic
+  DISCOUNT_MULTIPLIER: 1.8
 };
 
 // TOOLTIP TEXTS

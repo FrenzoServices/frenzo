@@ -178,9 +178,14 @@ const PricingCalculator = () => {
       <div style={{ borderTop: '1px solid #333', paddingTop: '2rem', marginTop: '2rem' }}>
          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1.5rem' }}>
             <span style={{ color: '#888' }}>Estimated Investment</span>
-            <span style={{ fontSize: '2.5rem', fontWeight: 'bold', lineHeight: 1, color: 'var(--accent-primary)' }}>
-              {formatPrice(total)}
-            </span>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontSize: '1.2rem', color: '#666', textDecoration: 'line-through', fontWeight: 'bold' }}>
+                {formatPrice(total * PRICING_RATES.DISCOUNT_MULTIPLIER)}
+              </div>
+              <span style={{ fontSize: '2.5rem', fontWeight: 'bold', lineHeight: 1, color: 'var(--accent-primary)' }}>
+                {formatPrice(total)}
+              </span>
+            </div>
          </div>
          
          <Link to="/contact" state={{ 

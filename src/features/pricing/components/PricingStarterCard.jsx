@@ -13,7 +13,12 @@ const PricingStarterCard = () => {
       <div style={{ background: '#222', width: 'fit-content', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', color: '#fff', marginBottom: '1.5rem' }}>
         THE STARTER
       </div>
-      <h3 style={{ fontSize: '3.5rem', marginBottom: '0.5rem', fontWeight: '800', lineHeight: 1 }}>₹{PRICING_RATES.type.starter.toLocaleString()}</h3>
+      <div style={{ marginBottom: '0.5rem', lineHeight: 1 }}>
+        <span style={{ fontSize: '3.5rem', fontWeight: '800' }}>₹{PRICING_RATES.type.starter.toLocaleString()}</span>
+        <span style={{ fontSize: '1.5rem', color: '#666', textDecoration: 'line-through', marginLeft: '12px' }}>
+           ₹{(PRICING_RATES.type.starter * PRICING_RATES.DISCOUNT_MULTIPLIER).toLocaleString()}
+        </span>
+      </div>
       <p style={{ color: '#666', marginBottom: '2rem' }}>One-time payment.</p>
 
       <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem', flex: 1 }}>
