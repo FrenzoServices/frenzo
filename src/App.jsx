@@ -20,9 +20,11 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import UserProfilePage from './pages/UserProfilePage';
 import ProtectedRoute from './features/auth/components/ProtectedRoute';
+import ProjectDetails from './pages/ProjectDetails';
 
 import AnalyticsTracker from './components/layout/AnalyticsTracker';
 import Audit from './pages/Audit';
+import PublicProjects from './pages/PublicProjects';
 
 // Simple ScrollToTop component
 function App() {
@@ -60,7 +62,11 @@ function App() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/thank-you" element={<ThankYou />} />
+
             <Route path="/audit" element={<Audit />} />
+            
+            {/* Public Projects Showcase */}
+            <Route path="/projects" element={<PublicProjects />} />
             
             {/* Auth Routes */}
             <Route path="/login" element={<Login />} />
@@ -68,6 +74,13 @@ function App() {
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            } />
+            
+            {/* Projects Route */}
+            <Route path="/projects/:projectId" element={
+              <ProtectedRoute>
+                <ProjectDetails />
               </ProtectedRoute>
             } />
             

@@ -91,7 +91,7 @@ const Home = () => {
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button to="/contact" state={{ details: CONTACT_MESSAGES.BOOK_STRATEGY }} variant="primary">Book Your Free Scale Strategy <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} /></Button>
-            <Button to="/audit" variant="outline">Audit Your Current Stack</Button>
+            <Button to="/audit" variant="outline">Design My Growth System</Button>
           </div>
         </div>
       </section>

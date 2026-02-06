@@ -7,6 +7,7 @@ import { useAuth } from '../../../context/AuthContext';
 import { isAdmin } from '../../../config/admins';
 import { analyticsService } from '../../analytics/analyticsService';
 
+
 const UserProfile = ({ targetUserId, readOnly = false }) => {
     const { currentUser } = useAuth();
     
@@ -67,8 +68,6 @@ const UserProfile = ({ targetUserId, readOnly = false }) => {
                 setRequirements(data.requirements || '');
                 setAuditData(data.audit || null);
                 
-                // If it's the current user, we can fallbacks for auth data? 
-                // But generally DB should be single source of truth for "Profile Form"
                 if (uid === currentUser?.uid) {
                     if (!data.displayName) setDisplayName(currentUser.displayName || '');
                     if (!data.email) setEmail(currentUser.email || '');
@@ -82,7 +81,6 @@ const UserProfile = ({ targetUserId, readOnly = false }) => {
                     requirements: data.requirements || requirements
                 });
             } else {
-                 // No DB profile yet? 
                  if (uid === currentUser?.uid) {
                      setDisplayName(currentUser.displayName || '');
                      setEmail(currentUser.email || '');
@@ -117,12 +115,6 @@ const UserProfile = ({ targetUserId, readOnly = false }) => {
             await uploadBytes(storageRef, file);
             const url = await getDownloadURL(storageRef);
             setPhotoURL(url);
-            
-            // Auto-save the new photo URL immediately? Or wait for "Save Profile"?
-            // Let's just update state, user clicks Save.
-            // Actually, for UX, photo usually updates immediately. 
-            // But let's stick to "Save Profile" for consistency, OR we can auto-update if we want.
-            // Given the form behavior, let's keep it in state, but updating photo usually implies immediate save.
             setMsg({ text: 'Image uploaded. Click Save to apply.', type: 'success' });
         } catch (error) {
             console.error(error);
@@ -149,15 +141,14 @@ const UserProfile = ({ targetUserId, readOnly = false }) => {
             const userRef = doc(db, "users", targetUserId);
             await setDoc(userRef, {
                 displayName,
-                email, // Ensure email is saved/merged
-                photoURL, // Ensure photoURL is saved/merged
+                email, 
+                photoURL, 
                 phoneNumber,
                 companyName,
                 requirements,
                 updatedAt: new Date()
             }, { merge: true });
             
-            // Update initial data after save so button disables again
             setInitialData({
                 displayName,
                 phoneNumber,
@@ -242,7 +233,7 @@ const UserProfile = ({ targetUserId, readOnly = false }) => {
                             type="email" 
                             className="activity-input"
                             value={email}
-                            disabled={true} // Email usually immutable or handled via specific flow
+                            disabled={true} 
                             style={{ opacity: 0.7, cursor: 'not-allowed' }}
                         />
                     </div>
@@ -352,6 +343,8 @@ const UserProfile = ({ targetUserId, readOnly = false }) => {
                     </p>
                 )}
             </form>
+
+            {/* User Projects List (Visible to User and Admins) - REMOVED (Moved to Dashboard) */}
 
             {/* Admin Only: Activity Timeline */}
             {isAdministrator && (

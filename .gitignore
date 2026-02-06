@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+firebase-debug.log*
 
 node_modules
 dist
@@ -24,9 +25,12 @@ dist-ssr
 *.sw?
 
 # Local Specific
-documents/New*
+documents/SALES_VIDEOS
 
 # Environment
 .env
 .env.local
 .env.*.local
+
+# Firebase
+.firebase/
