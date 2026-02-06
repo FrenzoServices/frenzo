@@ -25,3 +25,8 @@ dist-ssr
 
 # Local Specific
 documents/New*
+
+# Environment
+.env
+.env.local
+.env.*.local
