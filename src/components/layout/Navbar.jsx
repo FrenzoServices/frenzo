@@ -23,8 +23,7 @@ const Navbar = () => {
         <Link to="/services" className="nav-link" onClick={closeMenu}>Services</Link>
         <Link to="/projects" className="nav-link" onClick={closeMenu}>Work</Link>
         <Link to="/pricing" className="nav-link" onClick={closeMenu}>Pricing</Link>
-        <Link to="/how-it-works" className="nav-link" onClick={closeMenu}>Process</Link>
-        <Link to="/vision" className="nav-link" onClick={closeMenu}>Vision</Link>
+        <Link to="/approach" className="nav-link" onClick={closeMenu}>Approach</Link>
         <Link to="/contact" state={{ details: CONTACT_MESSAGES.BOOK_STRATEGY }} className="btn-primary mobile-only" onClick={closeMenu} style={{ fontSize: '1.2rem', padding: '1rem 2rem', marginTop: '1rem' }}>Book Strategy</Link>
       </div>
 

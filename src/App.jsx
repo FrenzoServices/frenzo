@@ -4,12 +4,12 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import ServiceDetail from './pages/ServiceDetail';
-import Vision from './pages/Vision';
+
 import Pricing from './pages/Pricing';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import Contact from './pages/Contact';
-import HowItWorks from './pages/HowItWorks';
+import Approach from './pages/Approach';
 import ThankYou from './pages/ThankYou';
 import ScrollToTop from './components/ui/ScrollToTop';
 
@@ -48,8 +48,7 @@ function App() {
               </ProtectedRoute>
             } />
 
-            <Route path="/how-it-works" element={<HowItWorks />} />
-            <Route path="/vision" element={<Vision />} />
+            <Route path="/approach" element={<Approach />} />
             <Route path="/contact" element={<Contact />} />
             
             {/* Protected Pricing */}
