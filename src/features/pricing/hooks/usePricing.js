@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { PRICING_RATES } from '../constants/rates';
+import { PRICING_RATES } from '../../../constants';
 
 export const usePricing = () => {
   const [projectType, setProjectType] = useState('standard'); 

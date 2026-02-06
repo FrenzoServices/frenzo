@@ -5,6 +5,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import Section from '../components/ui/Section';
 import Button from '../components/ui/Button';
+import { COMPANY_INFO } from '../constants';
 
 const Contact = () => {
   const { state } = useLocation();
@@ -74,7 +75,7 @@ const Contact = () => {
     }
 
     // 2. Open Email Client
-    window.location.href = `mailto:contact@frenzo.services?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${COMPANY_INFO.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     
     // 3. Redirect to Thank You Page (Visual Confirmation)
     setTimeout(() => {
@@ -98,10 +99,10 @@ const Contact = () => {
           <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
              <div style={{ background: '#111', padding: '1rem 1.5rem', borderRadius: '8px', border: '1px solid #333' }}>
                 <div style={{ color: '#888', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '0.4rem' }}>Email</div>
-                <div style={{ fontWeight: '600' }}>contact@frenzo.services</div>
+                <div style={{ fontWeight: '600' }}>{COMPANY_INFO.email}</div>
              </div>
              <a 
-               href="tel:+918904045305" 
+               href={`tel:${COMPANY_INFO.phone}`} 
                onClick={(e) => {
                  if (window.gtag_report_conversion) {
                    e.preventDefault();
@@ -111,7 +112,7 @@ const Contact = () => {
                style={{ background: '#111', padding: '1rem 1.5rem', borderRadius: '8px', border: '1px solid #333', textDecoration: 'none', color: 'inherit', display: 'block', cursor: 'pointer' }}
              >
                 <div style={{ color: '#888', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '0.4rem' }}>Phone</div>
-                <div style={{ fontWeight: '600' }}>+91 8904045305</div>
+                <div style={{ fontWeight: '600' }}>{COMPANY_INFO.phoneDisplay}</div>
              </a>
           </div>
           

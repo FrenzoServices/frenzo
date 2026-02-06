@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Twitter, Linkedin, Instagram, Mail } from 'lucide-react';
+import { COMPANY_INFO } from '../../constants';
 
 const Footer = () => {
   return (
@@ -41,11 +42,12 @@ const Footer = () => {
               <a href="#" style={{ color: '#888' }}><Twitter size={20} /></a>
               <a href="#" style={{ color: '#888' }}><Linkedin size={20} /></a>
               <a href="#" style={{ color: '#888' }}><Instagram size={20} /></a>
-              <a href="mailto:contact@frenzo.services" style={{ color: '#888' }}><Mail size={20} /></a>
+              <a href="#" style={{ color: '#888' }}><Instagram size={20} /></a>
+              <a href={`mailto:${COMPANY_INFO.email}`} style={{ color: '#888' }}><Mail size={20} /></a>
            </div>
            <div style={{ marginTop: '1rem', color: '#666', fontSize: '0.9rem' }}>
-              <div>+91 8904045305</div>
-              <div>contact@frenzo.services</div>
+              <div>{COMPANY_INFO.phoneDisplay}</div>
+              <div>{COMPANY_INFO.email}</div>
            </div>
         </div>
 

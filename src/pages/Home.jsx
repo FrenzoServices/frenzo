@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Section from '../components/ui/Section';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import { ArrowRight, Globe, Cpu, DollarSign, Layers } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { CONTACT_MESSAGES } from '../constants';
 
 const Home = () => {
   const [currency, setCurrency] = useState('USD');
@@ -90,7 +90,7 @@ const Home = () => {
             Frenzo empowers creators and businesses to build independent digital systems, control their revenue, and scale without limits.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Button to="/contact" state={{ details: 'I am interested in Booking a Free Scale Strategy Session.' }} variant="primary">Book Your Free Scale Strategy <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} /></Button>
+            <Button to="/contact" state={{ details: CONTACT_MESSAGES.BOOK_STRATEGY }} variant="primary">Book Your Free Scale Strategy <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} /></Button>
             <Button to="/audit" variant="outline">Audit Your Current Stack</Button>
           </div>
         </div>

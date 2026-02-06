@@ -7,6 +7,7 @@ import { db } from '../lib/firebase';
 import { doc, setDoc, getDoc } from 'firebase/firestore'; 
 import { useAuth } from '../context/AuthContext';
 import { CheckCircle, AlertTriangle, ArrowRight, Save } from 'lucide-react';
+import { AUDIT_CONFIG, CONTACT_MESSAGES } from '../constants';
 
 const Audit = () => {
   const { currentUser } = useAuth();
@@ -67,9 +68,9 @@ const Audit = () => {
   };
 
   const getResult = () => {
-    if (score >= 40) return { title: "Scalable Foundation", color: "#22c55e", desc: "You have a solid tech stack, but there's room to optimize with advanced AI agents." };
-    if (score >= 20) return { title: "Growing Pains", color: "#fbbf24", desc: "You are relying too much on manual work or rented platforms. It's time to build your own assets." };
-    return { title: "At Risk", color: "#ef4444", desc: "Your business is highly dependent on manual labor or third-party rules. You need a custom infrastructure immediately." };
+    if (score >= AUDIT_CONFIG.THRESHOLDS.SCALABLE) return AUDIT_CONFIG.RESULTS.SCALABLE;
+    if (score >= AUDIT_CONFIG.THRESHOLDS.GROWING) return AUDIT_CONFIG.RESULTS.GROWING;
+    return AUDIT_CONFIG.RESULTS.RISK;
   };
 
   const result = step === 'result' ? getResult() : null;
@@ -89,7 +90,7 @@ const Audit = () => {
           // Construct formatted audit data
           const auditData = {
               score,
-              maxScore: 55,
+              maxScore: AUDIT_CONFIG.MAX_SCORE,
               status: result.title,
               answers: answers,
               completedAt: new Date().toISOString(),
@@ -195,7 +196,7 @@ const Audit = () => {
 
                   <Button 
                     to="/contact" 
-                    state={{ details: `I completed the Tech Audit and scored ${score}/55 (${result.title}). I need help fixing my scalability gaps.` }} 
+                    state={{ details: CONTACT_MESSAGES.AUDIT_RESULT(score, result.title) }} 
                     variant="primary"
                     style={{ width: '100%' }}
                   >

@@ -3,7 +3,7 @@ import { ArrowRight, FileText, Monitor, Globe, Smartphone, Layers, Check } from 
 import { Link } from 'react-router-dom';
 import Tooltip from '../../../components/ui/Tooltip';
 import { usePricing } from '../hooks/usePricing';
-import { ADDONS, DESIGN_OPTIONS, INTELLIGENCE_OPTIONS } from '../constants/rates';
+import { ADDONS, DESIGN_OPTIONS, INTELLIGENCE_OPTIONS } from '../../../constants';
 import { Info } from 'lucide-react';
 
 const getTypeStyle = (id, current) => ({

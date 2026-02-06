@@ -12,7 +12,8 @@ src/
 ├── components/      # Shared "dumb" UI components (Design System)
 │   ├── ui/          # Atoms: Button, Input, Card, Modal
 │   ├── layout/      # Organisms: Navbar, Footer, Section
-├── config/          # Global configuration (constants, environment)
+├── constants.js     # Centralized App Constants (Pricing, Messages, Config)
+├── config/          # Global configuration (firebase_config, environment)
 ├── features/        # Business Logic & Complex Features
 │   ├── auth/        # FEATURE: Authentication
 │   │   ├── api/     # authService.js (Register, Login, Google, Phone)
@@ -24,6 +25,7 @@ src/
 │   │   ├── components/ # AdminAnalyticsView (Consumed here)
 │   │   └── styles/     # Dashboard specific styles
 │   ├── contact/     # FEATURE: Contact Forms & Logic
+│   ├── audit/       # FEATURE: Tech Stack Audit (Questionnaire logic)
 │   └── solutions/   # FEATURE: Services & Use Cases
 ├── hooks/           # Shared global hooks (useScroll, useWindowSize)
 ├── lib/             # Utilities and helpers (firebase, date formatting)
