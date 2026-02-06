@@ -90,8 +90,8 @@ const Home = () => {
             Frenzo empowers creators and businesses to build independent digital systems, control their revenue, and scale without limits.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Button to="/contact" variant="primary">Start a Project <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} /></Button>
-            <Button to="/vision" variant="outline">Our Vision</Button>
+            <Button to="/contact" state={{ details: 'I am interested in Booking a Free Scale Strategy Session.' }} variant="primary">Book Your Free Scale Strategy <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} /></Button>
+            <Button to="/contact" state={{ details: 'I would like an Audit of my current tech stack.' }} variant="outline">Audit Your Current Stack</Button>
           </div>
         </div>
       </section>

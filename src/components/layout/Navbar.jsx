@@ -26,6 +26,9 @@ const Navbar = () => {
       </div>
 
       <div className="nav-right">
+          {/* CTA - Visible on Mobile too */}
+          <Link to="/contact" state={{ details: 'I am interested in Booking a Free Scale Strategy Session.' }} className="btn-primary" style={{ marginRight: '0.5rem', fontSize: '0.8rem', padding: '0.5rem 1rem' }}>Book Strategy</Link>
+
           {/* User Menu - Always Visible */}
           <UserMenu />
 
