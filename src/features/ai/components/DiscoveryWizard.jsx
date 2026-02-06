@@ -152,9 +152,7 @@ const DiscoveryWizard = () => {
       {step === 'result' && proposal && (
         <div className="card" style={{ padding: '0', overflow: 'hidden', border: '1px solid var(--accent-primary)' }}>
            <div style={{ background: 'linear-gradient(to right, var(--accent-primary), #7c3aed)', padding: '2rem', textAlign: 'center' }}>
-              <div style={{ background: 'rgba(255,255,255,0.2)', width: 'fit-content', margin: '0 auto 1rem', padding: '6px 16px', borderRadius: '20px', display: 'flex', alignItems: 'center', gap: '8px', color: '#fff', fontSize: '0.9rem', fontWeight: 'bold' }}>
-                 <Sparkles size={16} /> AI Generated Proposal
-              </div>
+
               <h2 style={{ fontSize: '2rem', color: '#fff', margin: 0 }}>{proposal.title}</h2>
               <p style={{ color: 'rgba(255,255,255,0.8)', marginTop: '0.5rem', fontSize: '1.2rem' }}>Estimated Investment: ₹{proposal.estimatedCost.toLocaleString()}</p>
            </div>
